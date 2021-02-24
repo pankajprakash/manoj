@@ -1,88 +1,15 @@
-var tbody=document.getElementById("tbody")
-getData()
-
-function getData()
-
-{
-fetch('http://192.168.1.10:80/api/users/' )
-.then(res => res.json())
-.then((apidata)=> display(apidata))
-.catch((error)=>{
-    console.log(error)
-})
-
-}
-var res="";// for deleteing data
-
-function display(display1)
-{
-    let tbl="";//for show data on table
-    res=display1.result;
-    // let i=0;
-    // console.log(res.length)
-    for(let i=0;i< res.length ;i++)
-    {
-        // console.log(res[i].id)
-tbl+=`<tr>
-<td> ${res[i].id}</td>
-<td> ${res[i].name}</td>
-
-<td><button type="button"  id="${res[i].id}"  onclick="cwlick(${i})" class="btn btn-success">View</button>
-<button type="button" id="${res.id}" onclick="create_data(${i})" class="btn btn-secondary" >Create</button>
-<button type="button" id="${res.id}" onclick="deleterecord(${i})" class="btn btn-danger"   >Delete</button>
-<button type="button" id="${res.id}" onclick="updaterecord(${i})" class="btn btn-primary" >Update</button></td>
-</tr>
-`
-  
-document.getElementById("tbody").innerHTML=tbl
-    }
-
-}
-
-
-
-function cwlick(id)
-{
-
-console.log(id)
-    fetch(" http://192.168.1.10:80/api/users/", {"method":"GET"})
-    .then((res)=> res.json())
-    .then( (apidata) =>{
-let res= apidata.result;  
-
-var table=` <tr>
-<td>`+res[id].id+`</td>
-<td>`+res[id].name+`</td>
-
-<td>`+res[id].address+`</td>
-
-<td>`+res[id].phone+`</td>
-
-<td>`+res[id].email+`</td>
-
-
-
-
-    
-</tr>`
-tbody.innerHTML = table;
-    } )
-}
-
-
-
-
-
 function create_data()
 {
-   
+    // let value=id.data[0];
+    // let i=id.data[0].id;
+    // console.log(value);
     let form="";
     
             form +=" <form id='form_table'>";
             form +="<label for=''>Name &nbsp;&nbsp;&nbsp;&nbsp;</label>";
             form +="<input type='text' name='name' id='name' class='input_post_form' placeholder='' ><br><br>";
 
-            form +="<label for=''>Email Id </label>";
+            form +="<label for=''>Email Id  </label>";
             form +="<input type='text' name='email' id='' class='input_post_form' placeholder=''><br><br>";
 
             form +="<label for=''>Address&nbsp;</label>";
@@ -121,29 +48,15 @@ function create_data()
 
 
 
-
 function deleterecord(id)
     {
-        alert("are you sure you want to delete?"+id);
-        let obj=res[id].id;
+        alert("Delete"+id);
+        let key=result[id].id;
 
-        fetch('http://192.168.1.10:80/api/user/delete/'+obj,{ method: 'DELETE'})
+        fetch('http://192.168.1.10:80/api/user/delete/'+key,{ method: 'DELETE'})
         .then((response) => response.json())
         .then((data) =>  console.log(data))
         .catch(function (err) {
             console.log(err);
         });
     }
-
-function updaterecord(id)
-{
-    let change=res[id].id;
-    fetch(' http://192.168.1.10:80/api/user/update/5'+change,{method: 'PUT'})
-    .then ((response)=>response.json())
-    .then ((data)=>console.log(data))
-    .catch(function (err){
-        console.log(err);
-    
-
-    });
-}
