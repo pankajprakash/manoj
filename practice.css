@@ -1,6 +1,6 @@
 table{
-  width: 1000px;
-  border: 2-x;
+  width: 100%;
+  /* border: 2px; */
 }
 
 table,th{
